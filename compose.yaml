@@ -1,0 +1,29 @@
+services:
+  homeassistant-network:
+    build: 
+      context: ./homeassistant-network
+      dockerfile: Dockerfile
+    container_name: homeassistant-network
+    hostname: homeassistant-network
+    volumes:
+        - ./homeassistant-network/tailscale:/var/lib/tailscale
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    devices:
+        - /dev/net/tun:/dev/net/tun
+    restart: unless-stopped
+  homeassistant:
+    build:
+      context: ./homeassistant
+      dockerfile: Dockerfile
+    image: homeassistant-riscv64:local
+    container_name: homeassistant
+    restart: unless-stopped
+    network_mode: "service:homeassistant-network"
+    volumes:
+      - ./homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      TZ: Asia/Seoul
+    stop_grace_period: 60s
