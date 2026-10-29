@@ -167,13 +167,13 @@ If authentication or connection setup is incomplete, follow the instructions pri
 
 ### 4. Access Home Assistant
 
-Once Home Assistant is running, open:
+Once Home Assistant is running and Tailscale is connected, access Home Assistant using the Tailscale IP address or MagicDNS hostname of the network container:
 
 ```text
-http://<HOST_IP>:8123
+http://<TAILSCALE_IP>:8123
 ```
 
-For remote access through Tailscale, use the Tailscale IP address or MagicDNS hostname of the network container, provided your tailnet access rules allow the connection.
+Replace `<TAILSCALE_IP>` with the Tailscale IP address of the network container. Ensure that your tailnet access rules permit the connection.
 
 ## Troubleshooting
 
